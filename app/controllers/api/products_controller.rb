@@ -1,18 +1,37 @@
 class Api::ProductsController < ApplicationController
 
-  def display
+  def index
     @products = Product.all
-    render 'products.json.jb'
+    render 'index.json.jb'
   end
 
-  def one_product
-    @product = Product.first
-    render 'one_product.json.jb'
+  def show
+    @product = Product.find(params[:id])
+    render 'show.json.jb'
   end
 
-  def any_product
-    @id = params["id"]
-    @product = Product.find_by(id: @id)
-    render 'any_product.json.jb'
+  def create
+    @product = Product.new(
+      name: params[:name], 
+      price: params[:price],
+      image_url: params[:image_url]
+    )
+    @product.save
+    render 'show.json.jb'
   end
+
+  def update
+    @recipe = Recipe.find_by(id: params[:id])
+
+    @recipe.name = params[:name] || @recipe.name
+
+    @recipe.price = params[:price] || @recipe.price
+
+    @recipe.image_url = params[:image_url] || @recipe.image_url
+
+    @recipe.save
+
+    render 'show.json.jb'
+  end
+
 end
