@@ -2,6 +2,21 @@ class Api::ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    if params[:search]
+      @products = @products.where("name iLIKE ?","%#{params[:search]}%")
+    end
+    if params[:discount] 
+      @products = @products.where("price < ?", 15)
+    end
+    if params[:sort] == "price"
+      if params[:sort_order] == "asc"
+        @products = @products.order(:price)
+      elsif params[:sort_order] == "desc"
+        @products = @products.order(price: :desc)
+      end
+    else
+      @products = @products.order(:id)
+    end
     render 'index.json.jb'
   end
 
@@ -19,7 +34,7 @@ class Api::ProductsController < ApplicationController
       description: params[:description]
     )
     if @product.save
-    render 'show.json.jb'
+      render 'show.json.jb'
     else
       render json: {error: @product.errors.full_messages}, status: :unprocessable_entity
     end
@@ -36,9 +51,9 @@ class Api::ProductsController < ApplicationController
     if @product.save
       render 'show.json.jb'
     else
-        render json: {error: @product.errors.full_messages}, status: :unprocessable_entity
+      render json: {error: @product.errors.full_messages}, status: :unprocessable_entity
     end
-    
+
   end
 
   def destroy
