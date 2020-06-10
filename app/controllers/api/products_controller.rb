@@ -1,23 +1,27 @@
 class Api::ProductsController < ApplicationController
 
   def index
+    # if current_user
     @products = Product.all
-    if params[:search]
-      @products = @products.where("name iLIKE ?","%#{params[:search]}%")
-    end
-    if params[:discount] 
-      @products = @products.where("price < ?", 15)
-    end
-    if params[:sort] == "price"
-      if params[:sort_order] == "asc"
-        @products = @products.order(:price)
-      elsif params[:sort_order] == "desc"
-        @products = @products.order(price: :desc)
-      end
-    else
-      @products = @products.order(:id)
-    end
-    render 'index.json.jb'
+    # if params[:search]
+    #   @products = @products.where("name iLIKE ?","%#{params[:search]}%")
+    # end
+    # if params[:discount] 
+    #   @products = @products.where("price < ?", 15)
+    # end
+    # if params[:sort] == "price"
+    #   if params[:sort_order] == "asc"
+    #     @products = @products.order(:price)
+    #   elsif params[:sort_order] == "desc"
+    #     @products = @products.order(price: :desc)
+    #   end
+    # else
+    #   @products = @products.order(:id)
+    # end
+    #   render 'index.json.jb'
+    # else
+    #   render json:{message: "user not logged in"}
+    # end
   end
 
   def show
