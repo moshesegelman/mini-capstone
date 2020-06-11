@@ -1,5 +1,8 @@
 class Api::ProductsController < ApplicationController
 
+  before_action :authenticate_admin, except: [:index, :show]
+   
+
   def index
     # if current_user
     @products = Product.all
@@ -18,7 +21,7 @@ class Api::ProductsController < ApplicationController
     # else
     #   @products = @products.order(:id)
     # end
-    #   render 'index.json.jb'
+    render 'index.json.jb'
     # else
     #   render json:{message: "user not logged in"}
     # end
@@ -35,7 +38,8 @@ class Api::ProductsController < ApplicationController
       price: params[:price],
       stock: params[:stock],
       image_url: params[:image_url],
-      description: params[:description]
+      description: params[:description],
+      supplier_id: params[:supplier_id]
     )
     if @product.save
       render 'show.json.jb'
