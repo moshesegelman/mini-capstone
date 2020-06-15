@@ -4,8 +4,8 @@
   price: product.price,
   stock: product.stock,
   supplier_name: product.supplier.name,
-  #image_url: product.images,
   description: product.description,
+  categories: product.category_names,
   discount: product.is_discounted?,
   tax: number_to_currency(product.tax),
   total: number_to_currency(product.total)
