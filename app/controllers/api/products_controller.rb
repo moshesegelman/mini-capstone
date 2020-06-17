@@ -9,7 +9,7 @@ class Api::ProductsController < ApplicationController
       category = Category.find_by(name: params[:category])
       @products = category.products
     end
-    render 'index.json.jb'
+    # render 'index.json.jb'
    
   end
 
