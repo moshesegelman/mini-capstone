@@ -4,4 +4,11 @@
 <h4>Tax: <%=@product.tax%></h4>
 <h4>Total: <%=@product.total%></h4>
 
-<a href="/products"> All Products</a>
+<a href="/products/<%= @product.id %>/edit">Edit Product</a>
+<a href="/products/<%= @product.id %>" data-method="delete">Delete</a>
+
+<form action="/products/<%= @product.id %>" method="post">
+<input type="hidden" name="_method" value="delete">
+<button type="submit">Delete</button>
+</form>
+
